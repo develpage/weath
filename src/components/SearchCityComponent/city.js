@@ -35,6 +35,7 @@ export default {
     getClientIp() {
         return axios.get('https://cors-anywhere.herokuapp.com/http://api.ipify.org/?format=text')
             .then(res => {
+                console.log(res);
                 return res
             })
             .catch(err => {

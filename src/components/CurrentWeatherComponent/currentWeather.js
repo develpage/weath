@@ -12,7 +12,7 @@ export default {
         }
     },
     getCurrentWeather () {        
-        return axios.get('http://api.openweathermap.org/data/2.5/weather', this.params())
+        return axios.get('http://api.openweathermap.org/data/2.5/weather?lang=ru', this.params())
             .then(res => {
                 return res
             })
@@ -23,7 +23,7 @@ export default {
 
     },
     fiveDayForecast () {
-        return axios.get('http://api.openweathermap.org/data/2.5/forecast', this.params())
+        return axios.get('http://api.openweathermap.org/data/2.5/forecast?lang=ru', this.params())
             .then(res => {
                 return res
             })

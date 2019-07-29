@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <SearchCity />
-    <h1>{{ $store.getters.cityData.cityName }}</h1>
+  <div class="wrapper">
+    <div class="header">
+      <h1>Погода в:  {{ $store.getters.cityData.cityName }}</h1>
+      <SearchCity />
+    </div>
+
     <CurrentWeather />
     <Forecast />
   </div>
@@ -30,4 +33,15 @@ export default {
 
 
 <style scoped>
+.wrapper {
+  max-width: 1200px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
 </style>

@@ -1,7 +1,11 @@
 <template>
-    <div>
-        <p>{{ $store.getters.weatherData.t }} <span>C<sup>o</sup></span></p>
-        <img :src="$store.getters.weatherData.icon" alt="">
+    <div class="current-weather">
+        <img :src="'http://openweathermap.org/img/w/' + wData.weather[0].icon + '.png'" alt="">
+        <p>{{ wData.weather[0].description }}</p>
+        <p>{{ Math.round(wData.main.temp - 273.15) }} <span>C<sup>o</sup></span></p>
+        <p>Ветер: {{ wData.wind.speed }} м/с</p>
+        <p>Влажность: {{ wData.main.humidity }} %</p>
+        <p>Давление: {{ Math.round(wData.main.pressure * 0.75006375541921) }} мм рт. ст.</p>
     </div>
 </template>
 
@@ -12,7 +16,7 @@ export default {
     name: 'CurrentWeather',
     data () {
         return {
-            
+            wData: {}
         }
     },
     created () {
@@ -23,7 +27,8 @@ export default {
             ()=>{
                 weather.getCurrentWeather()
                     .then(w => {
-                        this.$store.commit('setWeather', w.data)
+                        // this.$store.commit('setWeather', w.data)
+                        this.wData = w.data
                     })
 
                 weather.fiveDayForecast()
@@ -38,4 +43,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+</style>
+
 

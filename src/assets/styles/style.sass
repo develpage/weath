@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700&display=swap')    
+    
+html
+    margin: 0
+    padding: 0
+
+body
+    width: 100%
+    height: auto
+    overflow-x: hidden
+    font-family: 'Roboto', sans-serif
+    color: #02121d
+
+div
+    box-sizing: border-box
+
+input
+    font-weight: 300
+    color: #323232
+    border: none
+    border-bottom: 2px solid #c9c9c9
+    padding: 0 10px
+    transition: border-color 0.3s ease
+    
+
+input:focus,
+input:active
+    outline: none
+    border-bottom-color: #2196F3
+
+button:focus,
+button:active
+    outline: none
+
+    
+
+.search-city
+
+    &__container
+        display: flex
+        justify-content: space-between
+        align-items: center
+        width: 400px
+
+    &__location_icon
+        width: 20px
+        height: auto
+        cursor: pointer
+        svg 
+            width: 100%
+            height: auto
+
+    &__list
+        position: absolute
+        top: 100%
+        list-style-type: none
+        margin: 15px 0 0
+        padding: 0
+        &_item
+            margin: 5px 0
+
+
+.input-group
+    display: flex
+    align-items: center
+    position: relative
+    width: 350px
+    height: 40px
+    label
+        position: relative
+        z-index: 1
+        font-weight: 300
+        left: 10px
+        cursor: text
+        opacity: 1
+        transition: opacity 0.3s ease
+        &.label_hidden
+            opacity: 0
+    .search-city__input 
+        display: block
+        box-sizing: border-box
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+        z-index: 0

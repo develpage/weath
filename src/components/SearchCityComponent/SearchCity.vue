@@ -1,33 +1,33 @@
 <template>
     <div class="search-city__container">
         
-        <div class="input-group">
-            <label  for     ="city"
-                    :class  ="{ 'label_hidden': inputFocus }"
-            >
-            {{ $store.getters.cityData.cityName }}
-            </label>
+        <div class="input-group" :class="{visible : inputShow}">
+            <label for="city" :class="{ 'label_hidden': inputFocus }">{{ $store.getters.cityData.cityName }}</label>
 
             <input  type    ="text"
                     name    ="city"
                     id      ="city"
                     class   ="search-city__input"
                     v-model ="inputValue"
-                    v-show  ="!inputShow"
                     @input  ="changeCity"
-                    @focus  ="inputFocus = true " 
+                    @focus  ="inputFocus = true" 
                     @blur   ="inputFocus = (inputValue.length > 0 ) ? true : false"
             />
 
             <ul class="search-city__list">
+                <!-- <li class="search-city__list_item" v-if="cityList.length === 0">Ничего не найдено</li> -->
+                <transition-group name="fade" tag="ul">
+
                 <li class="search-city__list_item"
                     v-for   ="city in cityList"
                     :key    ="city.data.kladr_id"
                     @click  ="selectNewCity(city)"
                     >
                     {{ city.value }}
-                    </li> 
+                </li>
+                </transition-group>
             </ul>
+
         </div>
 
         <div class="search-city__location_icon" @click="inputShow = !inputShow">
@@ -70,9 +70,10 @@ export default {
             city.changeCity(this.inputValue)
                 .then(cities => {
                     this.cityList = cities.data.suggestions
+                    console.log(this.cityList);
                 })
             },
-        1000),
+        700),
         selectNewCity (newCity) {
             this.inputValue = newCity.value
             city.changeCity(this.inputValue)
@@ -80,6 +81,7 @@ export default {
                     this.$store.commit('setLocation', cities.data.suggestions[0])
                 })            
             this.cityList = {}
+            this.inputShow = false
         }            
         
     }

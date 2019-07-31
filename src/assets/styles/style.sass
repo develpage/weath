@@ -66,6 +66,12 @@ button:active
     position: relative
     width: 350px
     height: 40px
+    opacity: 0
+    z-index: -1
+    transition: opacity 0.3s ease
+    &.visible
+        opacity: 1
+        z-index: 1
     label
         position: relative
         z-index: 1
@@ -85,3 +91,12 @@ button:active
         top: 0
         left: 0
         z-index: 0
+
+.fade-enter-active,
+.fade-leave-active
+    transition: opacity .3s ease, transform .3s ease
+
+.fade-enter,
+.fade-leave-to 
+    opacity: 0
+    transform: translateY(-10px)

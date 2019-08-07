@@ -5,8 +5,6 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        weather_APPID: '7e3fbc88fd6222fb743d652c55e3d775',
-        dadata_API_KEY: 'aa89573dd11d24e26d3818f58250ec8a56519b52',
         client_IP: '',
 
         cityData: {

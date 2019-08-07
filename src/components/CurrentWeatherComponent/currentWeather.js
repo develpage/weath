@@ -7,7 +7,7 @@ export default {
             params: {
                 lat: store.state.cityData.cityLat,
                 lon: store.state.cityData.cityLon,
-                APPID: store.state.weather_APPID
+                APPID: process.env.VUE_APP_WEATHER_APPID
             }
         }
     },

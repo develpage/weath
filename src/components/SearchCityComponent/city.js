@@ -1,11 +1,9 @@
 import axios from 'axios'
-import store from '../../store/store'
-// import { mapState } from 'vuex'
 
 const optionsCurrentClientLocation = {
     headers: {
         'Accept': 'application/json',
-        'Authorization': `Token ${store.state.dadata_API_KEY}`
+        'Authorization': `Token ${process.env.VUE_APP_DADATA_API_KEY}`
     }
 }
 
@@ -13,7 +11,7 @@ const changeCityOptions = {
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': `Token ${store.state.dadata_API_KEY}`
+        'Authorization': `Token ${process.env.VUE_APP_DADATA_API_KEY}`
     }
 }
 

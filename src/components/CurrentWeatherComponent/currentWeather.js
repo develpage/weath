@@ -5,9 +5,9 @@ export default {
     params () {
         return  {
             params: {
-                lat: store.getters.cityData.cityLat,
-                lon: store.getters.cityData.cityLon,
-                APPID: store.getters.weatherApi
+                lat: store.state.cityData.cityLat,
+                lon: store.state.cityData.cityLon,
+                APPID: store.state.weather_APPID
             }
         }
     },

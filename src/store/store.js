@@ -15,10 +15,7 @@ const store = new Vuex.Store({
             cityLon: ''
         },
 
-        weatherData: {
-            t: '',
-            icon: ''
-        },
+        weatherData: {},
 
         forecast: {}
         
@@ -35,29 +32,34 @@ const store = new Vuex.Store({
             state.cityData.cityLon  = location.data.geo_lon
         },
         setWeather (state, weather) {
-            state.weatherData.t = Math.round(weather.main.temp - 273.15)
-            state.weatherData.icon = `http://openweathermap.org/img/w/${weather.weather[0].icon}.png`
+            state.weatherData = weather
         },
         setForecast (state, forecast) {
             state.forecast = forecast
         }
     },
     getters: {
-        dadataApi (state) {
-            return state.dadata_API_KEY
+        getWeatherTemp (state) {
+            return Math.round(state.weatherData.main.temp - 273.15)
         },
-        weatherApi(state) {
-            return state.weather_APPID
+        getWeatherIcon(state) {
+            return `http://openweathermap.org/img/w/${state.weatherData.weather[0].icon}.png`
         },
-        cityData (state) {
-            return state.cityData
-        },
-        weatherData (state) {
-            return state.weatherData
-        },
-        getForecast (state) {
-            return state.forecast
+        getWeatherPreassure(state) {
+            return Math.round(state.weatherData.main.pressure * 0.75006375541921)
         }
+        // weatherApi(state) {
+        //     return state.weather_APPID
+        // },
+        // cityData (state) {
+        //     return state.cityData
+        // },
+        // weatherData (state) {
+        //     return state.weatherData
+        // },
+        // getForecast (state) {
+        //     return state.forecast
+        // }
     },
     modules: {}
 })

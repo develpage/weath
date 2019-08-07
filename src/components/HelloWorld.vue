@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="header">
-      <h1>Погода в:  {{ $store.getters.cityData.cityName }}</h1>
+      <h1>Погода в:  {{ $store.state.cityData.cityName }}</h1>
       <SearchCity />
     </div>
 

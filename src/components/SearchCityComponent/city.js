@@ -5,7 +5,7 @@ import store from '../../store/store'
 const optionsCurrentClientLocation = {
     headers: {
         'Accept': 'application/json',
-        'Authorization': `Token ${store.getters.dadataApi}`
+        'Authorization': `Token ${store.state.dadata_API_KEY}`
     }
 }
 
@@ -13,7 +13,7 @@ const changeCityOptions = {
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': `Token ${store.getters.dadataApi}`
+        'Authorization': `Token ${store.state.dadata_API_KEY}`
     }
 }
 
@@ -33,9 +33,8 @@ const changeCityBody = {
 
 export default {
     getClientIp() {
-        return axios.get('https://cors-anywhere.herokuapp.com/http://api.ipify.org/?format=text')
+        return axios.get('https://api.ip.sb/geoip')
             .then(res => {
-                console.log(res);
                 return res
             })
             .catch(err => {

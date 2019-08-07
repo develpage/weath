@@ -1,22 +1,32 @@
 <template>
-    <div class="current-weather">
-        <img :src="'http://openweathermap.org/img/w/' + wData.weather[0].icon + '.png'" alt="">
-        <p>{{ wData.weather[0].description }}</p>
-        <p>{{ Math.round(wData.main.temp - 273.15) }} <span>C<sup>o</sup></span></p>
-        <p>Ветер: {{ wData.wind.speed }} м/с</p>
-        <p>Влажность: {{ wData.main.humidity }} %</p>
-        <p>Давление: {{ Math.round(wData.main.pressure * 0.75006375541921) }} мм рт. ст.</p>
+    <div>
+
+        <div v-if="loading" class="loading">
+        Loading...
+        </div>
+
+        <div class="current-weather" v-else-if="post" >
+            <img :src="getWeatherIcon" alt="">
+            <p>{{ weatherData.weather[0].description }}</p>
+            <p>{{ getWeatherTemp }} <span>C<sup>o</sup></span></p>
+            <p>Ветер: {{ weatherData.wind.speed }} м/с</p>
+            <p>Влажность: {{ weatherData.main.humidity }} %</p>
+            <p>Давление: {{ getWeatherPreassure }} мм рт. ст.</p>
+        </div>
+
     </div>
 </template>
 
 <script>
 import weather from './currentWeather'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
     name: 'CurrentWeather',
     data () {
         return {
-            wData: {}
+            loading: true,
+            post: false,
         }
     },
     created () {
@@ -27,8 +37,13 @@ export default {
             ()=>{
                 weather.getCurrentWeather()
                     .then(w => {
-                        // this.$store.commit('setWeather', w.data)
-                        this.wData = w.data
+                        this.$store.commit('setWeather', w.data)
+                        
+                        setTimeout(() => {
+                            this.loading = false
+                            this.post = true 
+                        }, 1000)
+                        
                     })
 
                 weather.fiveDayForecast()
@@ -40,6 +55,16 @@ export default {
                 deep:true
             }
         )
+    },
+    computed: {
+        ...mapState([
+            'weatherData'
+        ]),
+        ...mapGetters([
+            'getWeatherTemp',
+            'getWeatherIcon',
+            'getWeatherPreassure'
+        ])
     }
 }
 </script>

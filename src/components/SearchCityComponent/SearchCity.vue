@@ -2,7 +2,7 @@
     <div class="search-city__container">
         
         <div class="input-group" :class="{visible : inputShow}">
-            <label for="city" :class="{ 'label_hidden': inputFocus }">{{ $store.getters.cityData.cityName }}</label>
+            <label for="city" :class="{ 'label_hidden': inputFocus }">{{ $store.state.cityData.cityName }}</label>
 
             <input  type    ="text"
                     name    ="city"
@@ -56,8 +56,8 @@ export default {
     },
     created () {
         city.getClientIp().then(ip => {
-            this.$store.commit('setClientIp', ip.data)
-            city.getCurrentClientLocation(ip.data).then(currentCity => {
+            this.$store.commit('setClientIp', ip.data.ip)
+            city.getCurrentClientLocation(ip.data.ip).then(currentCity => {
                 this.$store.commit('setLocation', currentCity.data.location)                
             })
         })

@@ -1,11 +1,13 @@
 <template>
     <div class="a">
-        <button @click="sortForecastByDay">aaa</button>
-        <ul v-for="(forecast, index) in forecasts.list" :key="index">
-            <li>date: {{ forecast.dt_txt }}</li>
-            <li>temp: {{ setTemp(forecast.main.temp) }} <span>C<sup>o</sup></span></li>
-            <li><img :src="'http://openweathermap.org/img/w/' + forecast.weather[0].icon + '.png'" /></li>
-        </ul>
+        <div class="forecasts-by-day" v-for="(forecastByDay, i) in forecastList" :key="i">
+            <p>{{ i }}</p>
+            <ul class="forecast" v-for="(forecast, index) in forecastByDay" :key="index">
+                <li>date: {{ forecast.dt_txt }}</li>
+                <li>temp: {{ setTemp(forecast.main.temp) }} <span>C<sup>o</sup></span></li>
+                <li><img :src="'http://openweathermap.org/img/w/' + forecast.weather[0].icon + '.png'" /></li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -16,7 +18,7 @@ export default {
     name: 'Forecast',
     data() {
         return {
-            
+            forecastList: {}
         }
     },
     computed: {
@@ -27,9 +29,11 @@ export default {
     methods: {
         sortForecastByDay() {
 
-            let result = this.forecasts.list.reduce((acc, item)=>{
+            let forecastObject = JSON.parse(JSON.stringify(this.forecasts.list))
 
-                let key = item.dt_txt.split('-')[2].split(' ')[0]
+            let result = forecastObject.reduce((acc, item)=>{
+
+                let key = item.dt_txt.split(' ')[0].split('-').reverse().join('-')
 
                 if (acc[key]) {
                     acc[key].push(item)
@@ -37,15 +41,22 @@ export default {
                     acc[key] = [item]
                 }
                 return acc
-                }, {})
+            }, {})
 
+            this.forecastList = result
 
-                console.log(result);
-
-            },
-            setTemp(k) {
-                return Math.round(k - 273.15)
-            }
+        },
+        setTemp(k) {
+            return Math.round(k - 273.15)
+        }
+    },
+    watch: {
+        'forecasts': function() {
+            this.sortForecastByDay()
+        }
     }
 }
 </script>
+
+<style scoped>
+</style>

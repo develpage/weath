@@ -46,18 +46,6 @@ const store = new Vuex.Store({
         getWeatherPreassure(state) {
             return Math.round(state.weatherData.main.pressure * 0.75006375541921)
         }
-        // weatherApi(state) {
-        //     return state.weather_APPID
-        // },
-        // cityData (state) {
-        //     return state.cityData
-        // },
-        // weatherData (state) {
-        //     return state.weatherData
-        // },
-        // getForecast (state) {
-        //     return state.forecast
-        // }
     },
     modules: {}
 })

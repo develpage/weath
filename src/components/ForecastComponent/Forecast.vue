@@ -1,10 +1,11 @@
 <template>
     <div class="a">
-        <!-- <ul v-for="(forecast, index) in forecasts.list" :key="index">
+        <button @click="sortForecastByDay">aaa</button>
+        <ul v-for="(forecast, index) in forecasts.list" :key="index">
             <li>date: {{ forecast.dt_txt }}</li>
-            <li>temp: {{ forecast.main.temp - 273.15 }} <span>C<sup>o</sup></span></li>
+            <li>temp: {{ setTemp(forecast.main.temp) }} <span>C<sup>o</sup></span></li>
             <li><img :src="'http://openweathermap.org/img/w/' + forecast.weather[0].icon + '.png'" /></li>
-        </ul> -->
+        </ul>
     </div>
 </template>
 
@@ -15,21 +16,36 @@ export default {
     name: 'Forecast',
     data() {
         return {
-            forecast: this.$store.state.forecast
+            
         }
     },
     computed: {
         ...mapState({
-            forecast2: state => state.forecast
+            forecasts: state => state.forecast
         })
-        // forecasts() {
-        //     console.log(this.$store.state.forecast)
-        //     return this.$store.state.forecast
-        // }
     },
-    mounted() {
-        console.log(this.forecast);
-        console.log(this.forecast2);
+    methods: {
+        sortForecastByDay() {
+
+            let result = this.forecasts.list.reduce((acc, item)=>{
+
+                let key = item.dt_txt.split('-')[2].split(' ')[0]
+
+                if (acc[key]) {
+                    acc[key].push(item)
+                } else {
+                    acc[key] = [item]
+                }
+                return acc
+                }, {})
+
+
+                console.log(result);
+
+            },
+            setTemp(k) {
+                return Math.round(k - 273.15)
+            }
     }
 }
 </script>

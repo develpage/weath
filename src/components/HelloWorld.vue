@@ -7,6 +7,10 @@
 
     <CurrentWeather />
     <Forecast />
+    <!-- <WeatherMap /> -->
+
+
+
   </div>
 </template>
 
@@ -14,13 +18,15 @@
 import SearchCity from './SearchCityComponent/SearchCity'
 import CurrentWeather from './CurrentWeatherComponent/CurrentWeather'
 import Forecast from './ForecastComponent/Forecast'
+// import WeatherMap from './WeatherMap/WeatherMap'
 
 export default {
   name: 'HelloWorld',
   components: {
     SearchCity,
     CurrentWeather,
-    Forecast
+    Forecast,
+    // WeatherMap
   },
   data () {
     return {

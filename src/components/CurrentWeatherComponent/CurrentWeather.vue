@@ -1,17 +1,37 @@
 <template>
     <div>
+        
+        <transition name="loader">
+            <div v-if="loading" class="loading">
+                <img class="loading__img" src="../../assets/img/sunlight.svg" alt="">
+            </div>
+        </transition>
 
-        <div v-if="loading" class="loading">
-        Loading...
-        </div>
+        <div class="current-weather" v-if="post" >
+            <slot></slot>
+            <div class="current-weather__maindata">
+                <p class="current-weather__data temperature"><span>+</span>{{ getWeatherTemp }}<sup>o</sup></p>
+                <div class="current-weather__maindata__desc">
+                    <img class="current-weather__icon" :src="getWeatherIcon" alt="">
+                    <p class="current-weather__data description">{{ weatherData.weather[0].description | capitalize}}</p>
+                </div>
+            </div>
+            
+            <div class="current-weather__seconddata">                
+                <p class="current-weather__data">
+                    <img class="current-weather__data__icon" src="../../assets/img/wind.svg" alt="">
+                    Ветер {{ weatherData.wind.speed }} м/с
+                </p>
+                <p class="current-weather__data">
+                    <img class="current-weather__data__icon" src="../../assets/img/humidity.svg" alt="">
+                    Влажность {{ weatherData.main.humidity }} %
+                </p>
+                <p class="current-weather__data">
+                    <img class="current-weather__data__icon" src="../../assets/img/preassure.svg" alt="">
+                    Давление {{ getWeatherPreassure }} мм рт. ст.
+                </p>
+            </div>
 
-        <div class="current-weather" v-else-if="post" >
-            <img :src="getWeatherIcon" alt="">
-            <p>{{ weatherData.weather[0].description }}</p>
-            <p>{{ getWeatherTemp }} <span>C<sup>o</sup></span></p>
-            <p>Ветер: {{ weatherData.wind.speed }} м/с</p>
-            <p>Влажность: {{ weatherData.main.humidity }} %</p>
-            <p>Давление: {{ getWeatherPreassure }} мм рт. ст.</p>
         </div>
 
     </div>
@@ -37,13 +57,16 @@ export default {
             ()=>{
                 weather.getCurrentWeather()
                     .then(w => {
-                        this.$store.commit('setWeather', w.data)
-                        
+                        this.$store.commit('setWeather', w.data)                         
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                    .finally(() => {
                         setTimeout(() => {
                             this.loading = false
                             this.post = true 
                         }, 1000)
-                        
                     })
 
                 weather.fiveDayForecast()
@@ -55,6 +78,11 @@ export default {
                 deep:true
             }
         )
+    },
+    filters: {
+        capitalize(value) {
+            return value.charAt(0).toUpperCase() + value.substr(1).toLowerCase();
+        }
     },
     computed: {
         ...mapState([

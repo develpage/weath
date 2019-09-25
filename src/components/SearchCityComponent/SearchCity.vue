@@ -1,17 +1,20 @@
 <template>
     <div class="search-city__container">
         
-        <div class="input-group" :class="{visible : inputShow}">
-            <label for="city" :class="{ 'label_hidden': inputFocus }">{{ $store.state.cityData.cityName }}</label>
+        <div class="input-group" :class="{'visible' : inputShow}">
+            
+            <label for="city" :class="{ 'label_hidden': inputFocus }">{{ cityData.cityName }}</label>
 
-            <input  type    ="text"
-                    name    ="city"
-                    id      ="city"
-                    class   ="search-city__input"
-                    v-model ="inputValue"
-                    @input  ="changeCity"
-                    @focus  ="inputFocus = true" 
-                    @blur   ="inputFocus = (inputValue.length > 0 ) ? true : false"
+            <input
+                type    ="text"
+                name    ="city"
+                id      ="city"
+                class   ="search-city__input"
+                autocomplete="off"
+                v-model ="inputValue"
+                @input  ="changeCity"
+                @focus  ="inputFocus = true" 
+                @blur   ="inputFocus = (inputValue.length > 0 ) ? true : false"
             />
 
             <ul class="search-city__list">
@@ -32,7 +35,7 @@
 
         <div class="search-city__location_icon" @click="inputShow = !inputShow">
             <svg width="372" height="512" viewBox="0 0 372 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M186 0C83.755 0 0.572998 83.182 0.572998 185.426C0.572998 312.314 166.512 498.593 173.577 506.461C180.213 513.852 191.799 513.839 198.423 506.461C205.488 498.593 371.427 312.314 371.427 185.426C371.425 83.182 288.244 0 186 0ZM186 278.719C134.558 278.719 92.708 236.868 92.708 185.426C92.708 133.984 134.559 92.134 186 92.134C237.441 92.134 279.291 133.985 279.291 185.427C279.291 236.869 237.441 278.719 186 278.719Z" fill="#C1C1C1"/>
+                <path d="M186 0C83.755 0 0.572998 83.182 0.572998 185.426C0.572998 312.314 166.512 498.593 173.577 506.461C180.213 513.852 191.799 513.839 198.423 506.461C205.488 498.593 371.427 312.314 371.427 185.426C371.425 83.182 288.244 0 186 0ZM186 278.719C134.558 278.719 92.708 236.868 92.708 185.426C92.708 133.984 134.559 92.134 186 92.134C237.441 92.134 279.291 133.985 279.291 185.427C279.291 236.869 237.441 278.719 186 278.719Z" fill="#fff"/>
             </svg>
         </div>
         

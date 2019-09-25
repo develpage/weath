@@ -10,7 +10,8 @@ const store = new Vuex.Store({
         cityData: {
             cityName: '',
             cityLat: '',
-            cityLon: ''
+            cityLon: '',
+            otherData: {}
         },
 
         weatherData: {},
@@ -28,6 +29,8 @@ const store = new Vuex.Store({
             state.cityData.cityName = location.value
             state.cityData.cityLat  = location.data.geo_lat
             state.cityData.cityLon  = location.data.geo_lon
+            state.cityData.otherData  = location.data
+            
         },
         setWeather (state, weather) {
             state.weatherData = weather
